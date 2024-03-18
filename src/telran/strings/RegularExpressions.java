@@ -13,14 +13,15 @@ public static String zero_300() {
 }
 public static String ipOctet() {
 	//string contains 1 - 3 symbols presenting number from 0 - 255; leading zeros allowed
-	String regex = "\\d\\d?|[0-1]\\d\\d|2[0-4]\\d|25[0-5]";
+	String regex = "[0-1]?\\d{1,2}|2([0-4]\\d|5[0-5])";
 	return regex;
 }
 public static String mobileIsraelPhone() {
 	//string contains possible Israel mobile phone number
 	//+972-...|+972...<prefix two digits beginning from 5>-<7 digits of number>
 	//<prefix three digits: first 0, second 5, third - any>-<7 digits of number>
-	String regex = "\\+972-?5\\d-?\\d\\d\\d\\d\\d\\d\\d|05\\d-?\\d\\d\\d\\d\\d\\d\\d";
+	String regex = "(\\+972-?|0)5\\d-?\\d{7}";
 	return regex;
 }
+
 }
