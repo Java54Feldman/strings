@@ -104,5 +104,42 @@ class RegularExpressionsTests {
 		assertFalse("059123456".matches(regex));
 		assertFalse("053--1234567".matches(regex));
 	}
-
+	@Test
+	@DisplayName("test for IP v4 adress regular expression")
+	void ipV4AdressTest() {
+		String ipV4Regex = RegularExpressions.ipV4Adress();
+		assertTrue("1.2.3.4".matches(ipV4Regex));
+		assertFalse("1.2.3".matches(ipV4Regex));
+		assertFalse("1 2.3.4".matches(ipV4Regex));
+		assertFalse("1. 2.3.4".matches(ipV4Regex));
+		assertFalse("1.2.3.4.5".matches(ipV4Regex));
+		assertFalse("1.2.3&4".matches(ipV4Regex));
+	}
+	@Test
+	@DisplayName("test of simple arithmetic expression")
+	void simpleArithmeticExpressionsTest() {
+		String regex = RegularExpressions.simpleArithmeticExpression();
+		assertTrue("20".matches(regex));
+		assertTrue("  20 +3 /2 *100".matches(regex));
+		assertTrue("10000-1".matches(regex));		
+		assertTrue("10000-1 ".matches(regex));
+		assertFalse("-20".matches(regex));
+		assertFalse("20 ** 3".matches(regex));
+		assertFalse("  20 +3 /2 *100 +".matches(regex));
+		assertFalse("  20 +3 //2 *100".matches(regex));
+	}
+	@Test
+	@DisplayName("test aritjmetic expressions with any numbers or variable names and brackets")
+	void arithmeticExpressionTest() {
+		String regex = RegularExpressions.arithmeticExpression();
+		simpleArithmeticExpressionsTest();
+		assertTrue("(20.5 + abc)*2".matches(regex));
+		assertTrue("(20.5 + abc))*2".matches(regex));
+		assertTrue("(20.5 + abc / 3)*(2".matches(regex));
+		assertTrue("(__)".matches(regex));
+		assertFalse("2 + _".matches(regex));
+		assertFalse("2 + a12 * ".matches(regex));
+		assertFalse("(2 + )a12 * ".matches(regex));
+				
+	}
 }
